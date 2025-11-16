@@ -4,7 +4,9 @@ from .matrices import (
     transpose,
     mul,
     identity,
-    rre 
+    rre,
+    determinant,
+    inverse
 )
    
 from .vectors import(

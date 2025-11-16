@@ -90,7 +90,47 @@ def rre(matrix):
                     for entryIndex in range(len(matrix[0])):
                         matrix[rowIndex][entryIndex] = round(matrix[rowIndex][entryIndex] - (matrix[selectedRow][entryIndex] * multiplier),5)
 
-
-
         selectedRow += 1
     return matrix   
+
+def inverse(matrix):
+    import copy
+    if not isSquare(matrix):
+        raise Exception("Only square matrices have an inverse")
+    dimensions = len(matrix)
+    identityMatrix = identity(dimensions)
+
+    copyMatrix = copy.deepcopy(matrix)
+
+    for rowIndex in range(len(copyMatrix)):
+        copyMatrix[rowIndex] += identityMatrix[rowIndex]
+
+    inverse = rre(copyMatrix)
+    for rowIndex in range(len(inverse)):
+        inverse[rowIndex] = inverse[rowIndex][dimensions:]
+    
+    return inverse
+
+def determinant(matrix):
+    import copy
+    if not isSquare(matrix):
+        raise Exception("The determinant can only be calculated for matrices which are valid and square")
+    if len(matrix) == 2:
+        return (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0])
+
+    colNums = len(matrix[0])
+    multiplicant = 1
+    result = 0
+    for valueIndex in range(colNums):
+        minorMatrix = copy.deepcopy(matrix)
+        minorMatrix = minorMatrix[1:]
+        for row in minorMatrix:
+            row.pop(valueIndex)
+        
+        result += multiplicant * matrix[0][valueIndex] * determinant(minorMatrix)
+        multiplicant *= -1
+    
+    return result
+
+
+

@@ -56,4 +56,10 @@ mul(matrix, matrix2)
 # Returns an identity matrix with a size specified by a supplied integer
 identity(5)
 
+# Returns the inverse matrix of a matrix if it is inversable
+inverse(matrix)
+
+# Returns the determinant of the matrix as an integer value
+determinant(matrix)
+
 ```
